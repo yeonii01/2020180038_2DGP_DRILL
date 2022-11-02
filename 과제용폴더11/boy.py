@@ -43,7 +43,16 @@ class RUN:
         print('ENTER RUN')
         # 방향을 결정해야 하는데, 뭘 근거로? 어떤 키가 눌렸기 때문에?
         # 키 이벤트 정보가 필요.
-        if event == RD:
+        if self.pre_state == DA:
+            if event == RD:
+                self.dir = 1
+            elif event == LD:
+                self.dir = -1
+            elif event == RU:
+                self.dir -= 1
+            elif event == LU:
+                self.dir += 1
+        elif event == RD:
             self.dir += 1
         elif event == LD:
             self.dir -= 1
@@ -87,6 +96,7 @@ class AUTO_RUN:
     @staticmethod
     def exit(self):
         print('EXIT RUN')
+        self.pre_state = DA
         self.face_dir = self.dir
         pass
 
@@ -178,6 +188,7 @@ class Boy:
         # 이벤트를 확인해서, 이벤트가 있으면 이벤트 변환 처리
         if self.q: #큐에 이벤트가 있으면
             event = self.q.pop()
+            self.pre_state = event
             self.cur_state.exit(self) #현재 상태를 나가야되고,
             self.cur_state = next_state[self.cur_state][event] #다음 상태를 구한다.
             self.cur_state.enter(self, event) #다음 상태의 entry action 수행
