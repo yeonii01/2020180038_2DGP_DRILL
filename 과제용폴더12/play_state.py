@@ -22,9 +22,11 @@ def handle_events():
 def enter():
     global  boy
     boy = Boy()
-    grass = Grass()
+    grass = Grass(5)
+    grass2 = Grass(40)
     game_world.add_object(boy, 1)
-    game_world.add_object(grass, 0)
+    game_world.add_object(grass, 1)
+    game_world.add_object(grass2, 0)
 
 # 종료
 def exit():
